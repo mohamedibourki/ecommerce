@@ -1,10 +1,6 @@
-import { WavyBackgroundDemo } from "@/components/background/background";
-import Image from "next/image";
-
+import { WavyBackgroundDemo } from "../components/background/background";
 export default function Home() {
   return (
-    <main>
-      <WavyBackgroundDemo />
-    </main>
-  );
+    <WavyBackgroundDemo />
+  )
 }

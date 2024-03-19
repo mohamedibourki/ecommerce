@@ -1,12 +1,10 @@
-"use client";
-import React from "react";
+import { AuthButton } from "../button/button";
 import { WavyBackground } from "../ui/wavy-background";
-import { ButtonAsChild } from "../button/button";
 
 export function WavyBackgroundDemo() {
   return (
     <WavyBackground>
-        <ButtonAsChild />
+      <AuthButton />
     </WavyBackground>
-  );
+  )
 }
