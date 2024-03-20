@@ -1,10 +1,12 @@
-import { AuthButton } from "../button/button";
+import VerticalTabs from "../tabs/VerticalTabs";
 import { WavyBackground } from "../ui/wavy-background";
 
 export function WavyBackgroundDemo() {
   return (
+    <>
     <WavyBackground>
-      <AuthButton />
+      <VerticalTabs />
     </WavyBackground>
+    </>
   )
 }
