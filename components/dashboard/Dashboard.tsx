@@ -54,7 +54,7 @@ export default function Dashboard() {
                             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                             variant="dot"
                         >
-                            <Avatar alt="Remy Sharp" src={session?.user?.image} sx={{ height: "40px"}} />
+                            <Avatar alt="Remy Sharp" src={session?.user?.image} sx={{ height: "40px" }} />
                         </StyledBadge>
                     </Stack>
                     <Button variant={"outline"} style={{ marginLeft: "20px", color: "black" }} onClick={() => signOut()}>Sign out</Button>

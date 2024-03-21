@@ -104,8 +104,8 @@ export const WavyBackground = ({
     // I'm sorry but i have got to support it on safari.
     setIsSafari(
       typeof window !== "undefined" &&
-        navigator.userAgent.includes("Safari") &&
-        !navigator.userAgent.includes("Chrome")
+      navigator.userAgent.includes("Safari") &&
+      !navigator.userAgent.includes("Chrome")
     );
   }, []);
 

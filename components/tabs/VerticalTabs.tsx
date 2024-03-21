@@ -55,7 +55,7 @@ export default function VerticalTabs() {
   };
 
   return (
-    <Box sx={{ display: 'flex', height: "100vh", width: "100vw", color: "white" }}>
+    <Box sx={{ display: 'flex', height: "100vh", width: "100vw", color: "white", zIndex: "0" }}>
       <Tabs
         orientation="vertical"
         variant="scrollable"
@@ -65,7 +65,7 @@ export default function VerticalTabs() {
         sx={{
           borderRight: 1,
           borderColor: 'divider',
-          marginTop: "50px",
+          paddingTop: "50px",
           background: "black",
           width: "11.5%"
         }}

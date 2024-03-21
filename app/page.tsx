@@ -1,7 +1,7 @@
-import { WavyBackgroundDemo } from "../components/background/background";
+import { SparklesPreview } from "../components/background/background";
 
 export default function Home() {
   return (
-    <WavyBackgroundDemo />
+    <SparklesPreview />
   )
 }
