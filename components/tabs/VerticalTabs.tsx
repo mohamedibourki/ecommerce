@@ -10,6 +10,7 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Dashboard from '../dashboard/Dashboard';
+import Products from '../products/Products';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -105,7 +106,7 @@ export default function VerticalTabs() {
         <Dashboard />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Products
+        <Products />
       </TabPanel>
       <TabPanel value={value} index={2}>
         Orders
