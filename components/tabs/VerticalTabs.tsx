@@ -9,6 +9,7 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
+import Dashboard from '../dashboard/Dashboard';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -26,10 +27,13 @@ function TabPanel(props: TabPanelProps) {
       id={`vertical-tabpanel-${index}`}
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
+      style={{ width: "100%" }}
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography sx={{ fontSize: "25px", fontWeight: "bolder" }}>{children}</Typography>
+          <Typography variant="h5" fontWeight="bolder">
+            {children}
+          </Typography>
         </Box>
       )}
     </div>
@@ -51,9 +55,7 @@ export default function VerticalTabs() {
   };
 
   return (
-    <Box
-      sx={{ display: 'flex', height: "100vh", width: "100vw", color: "white" }}
-    >
+    <Box sx={{ display: 'flex', height: "100vh", width: "100vw", color: "white" }}>
       <Tabs
         orientation="vertical"
         variant="scrollable"
@@ -100,7 +102,7 @@ export default function VerticalTabs() {
         />
       </Tabs>
       <TabPanel value={value} index={0}>
-        Dashboard
+        <Dashboard />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Products
