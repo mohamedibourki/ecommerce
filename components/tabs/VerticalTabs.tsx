@@ -4,7 +4,11 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import HomeIcon from '@mui/icons-material/Home';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -56,13 +60,44 @@ export default function VerticalTabs() {
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: 'divider', marginTop: "50px", background: "black" }}
+        sx={{
+          borderRight: 1,
+          borderColor: 'divider',
+          marginTop: "50px",
+          background: "black",
+          width: "11.5%"
+        }}
       >
-        <Tab label="Dashboard" {...a11yProps(0)} style={{ color: "white", fontSize: "20px", fontWeight: "bolder", marginBottom: "10px" }} />
-        <Tab label="Products" {...a11yProps(1)} style={{ color: "white", fontSize: "20px", fontWeight: "bolder", marginBottom: "10px" }} />
-        <Tab label="Orders" {...a11yProps(2)} style={{ color: "white", fontSize: "20px", fontWeight: "bolder", marginBottom: "10px" }} />
-        <Tab label="Profile" {...a11yProps(3)} style={{ color: "white", fontSize: "20px", fontWeight: "bolder", marginBottom: "10px" }} />
-        <Tab label="Settings" {...a11yProps(4)} style={{ color: "white", fontSize: "20px", fontWeight: "bolder", marginBottom: "10px" }} />
+        <Tab
+          label="Dashboard"
+          {...a11yProps(0)}
+          style={{ color: "white", fontSize: "20px", fontWeight: "bolder", marginBottom: "10px", display: "flex", flexDirection: "row", gap: "5px", justifyContent: "flex-start" }}
+          icon={<HomeIcon sx={{ marginBottom: "0 !important" }} />}
+        />
+        <Tab
+          label="Products"
+          {...a11yProps(1)}
+          style={{ color: "white", fontSize: "20px", fontWeight: "bolder", marginBottom: "10px", display: "flex", flexDirection: "row", gap: "5px", justifyContent: "flex-start" }}
+          icon={<LocalGroceryStoreIcon sx={{ marginBottom: "0 !important" }} />}
+        />
+        <Tab
+          label="Orders"
+          {...a11yProps(2)}
+          style={{ color: "white", fontSize: "20px", fontWeight: "bolder", marginBottom: "10px", display: "flex", flexDirection: "row", gap: "5px", justifyContent: "flex-start" }}
+          icon={<ViewListIcon sx={{ marginBottom: "0 !important" }} />}
+        />
+        <Tab
+          label="Profile"
+          {...a11yProps(3)}
+          style={{ color: "white", fontSize: "20px", fontWeight: "bolder", marginBottom: "10px", display: "flex", flexDirection: "row", gap: "5px", justifyContent: "flex-start" }}
+          icon={<PersonIcon sx={{ marginBottom: "0 !important" }} />}
+        />
+        <Tab
+          label="Settings"
+          {...a11yProps(4)}
+          style={{ color: "white", fontSize: "20px", fontWeight: "bolder", marginBottom: "10px", display: "flex", flexDirection: "row", gap: "5px", justifyContent: "flex-start" }}
+          icon={<SettingsIcon sx={{ marginBottom: "0 !important" }} />}
+        />
       </Tabs>
       <TabPanel value={value} index={0}>
         Dashboard
