@@ -18,6 +18,7 @@ type ParticlesProps = {
     particleColor?: string;
     particleDensity?: number;
 };
+
 export const SparklesCore = (props: ParticlesProps) => {
     const {
         id,
@@ -29,6 +30,7 @@ export const SparklesCore = (props: ParticlesProps) => {
         particleColor,
         particleDensity,
     } = props;
+
     const [init, setInit] = useState(false);
     useEffect(() => {
         initParticlesEngine(async (engine) => {
@@ -37,11 +39,12 @@ export const SparklesCore = (props: ParticlesProps) => {
             setInit(true);
         });
     }, []);
+
     const controls = useAnimation();
 
     const particlesLoaded = async (container?: Container) => {
         if (container) {
-            console.log(container);
+            // console.log(container);
             controls.start({
                 opacity: 1,
                 transition: {
@@ -56,7 +59,7 @@ export const SparklesCore = (props: ParticlesProps) => {
             {init && (
                 <Particles
                     id={id || "tsparticles"}
-                    className={cn("h-screen w-full")}
+                    className={cn("h-full w-full")}
                     particlesLoaded={particlesLoaded}
                     options={{
                         background: {
