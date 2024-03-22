@@ -1,4 +1,5 @@
 "use client"
+import { InputForm } from "@/components/input/InputForm";
 import { SparklesCore } from "@/components/ui/sparkles";
 
 export default function NewProducts() {
@@ -15,6 +16,7 @@ export default function NewProducts() {
                     particleColor="#FFFFFF"
                 />
             </div>
+            <InputForm />
         </div>
     </>
 }
