@@ -1,5 +1,5 @@
 {
-  "name": "ecommerce-admin",
+  "name": "ecommerce",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -19,7 +19,7 @@
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.20",
     "mongodb": "^6.5.0",
-    "next": "14.1.4",
+    "next": "^14.1.4",
     "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18",
