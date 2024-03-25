@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const { data: session } = useSession()
-  if (!session) {
+  if (session) {
     return <main className={`text-white`}>
       <SideNav>
         <div className="w-screen">

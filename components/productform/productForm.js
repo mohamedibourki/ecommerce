@@ -6,6 +6,7 @@ import { CFormSelect } from '@coreui/react'
 import { Button } from '@/components/ui/button'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 export default function ProductForm({
     _id,

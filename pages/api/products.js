@@ -24,4 +24,11 @@ export default async function handle(req, res) {
         const updatedProduct = await Product.findOneAndUpdate({ _id }, updateData, { new: true });
         res.json(updatedProduct);
     }
+
+    if (method === "DELETE") {
+        if (req.query?.id) {
+            await Product.deleteOne({ _id: req.query?.id })
+            res.json(true)
+        }
+    }
 }
