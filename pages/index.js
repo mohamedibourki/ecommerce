@@ -11,7 +11,7 @@ export default function Home() {
     return <main className={`text-white`}>
       <SideNav>
         <div className="w-screen">
-          Hello {session?.user.name || "Mohamed Ibourki" } ! <br />
+          Hello {session?.user.name || "User"} ! <br />
           <Button variant="outline" className='text-black' onClick={() => signOut()}>Sign out</Button>
         </div>
       </SideNav>
