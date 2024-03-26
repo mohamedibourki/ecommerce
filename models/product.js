@@ -7,7 +7,7 @@ const ProductSchema = new Schema({
     category: { type: String },
     color: { type: String },
     size: { type: String },
-    price: { type: String }
+    price: { type: Number }
 })
 
 export const Product = models.Product || model('Product', ProductSchema)
