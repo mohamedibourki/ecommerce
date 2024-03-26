@@ -99,12 +99,6 @@ export default function ProductForm({
                             'Category',
                             { label: 'Phone', value: 'Phone' },
                             { label: 'Tv', value: 'Tv' },
-                            { label: 'Tablet', value: 'Tablet' },
-                            { label: 'Laptop', value: 'Laptop' },
-                            { label: 'Watch', value: 'Watch' },
-                            { label: 'Camera', value: 'Camera' },
-                            { label: 'Headphone', value: 'Headphone' },
-                            { label: 'Speaker', value: 'Speaker' },
                         ]}
                         value={category}
                         onChange={e => setCategory(e.target.value)}
