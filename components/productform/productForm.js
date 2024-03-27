@@ -15,6 +15,7 @@ export default function ProductForm({
     category: existingCategory,
     color: existingColor,
     size: existingSize,
+    stock: existingStock,
     price: existingPrice
 }) {
     const [title, setTitle] = useState(existingTitle || '')
@@ -23,6 +24,7 @@ export default function ProductForm({
     const [category, setCategory] = useState(existingCategory || '')
     const [color, setColor] = useState(existingColor || '')
     const [size, setSize] = useState(existingSize || '')
+    const [stock, setStock] = useState(existingStock || '')
     const [price, setPrice] = useState(existingPrice || '')
     const [goToProducts, setGoToProducts] = useState(false)
 
@@ -30,7 +32,7 @@ export default function ProductForm({
 
     async function saveProduct(ev) {
         ev.preventDefault();
-        const data = { title, image, description, category, color, size, price };
+        const data = { title, image, description, category, color, size, price, stock };
         if (_id) {
             await axios.put('/api/products', { ...data, _id })
         } else {
@@ -118,14 +120,6 @@ export default function ProductForm({
                             { label: 'Red', value: 'Red' },
                             { label: 'Green', value: 'Green' },
                             { label: 'Blue', value: 'Blue' },
-                            { label: 'Yellow', value: 'Yellow' },
-                            { label: 'Purple', value: 'Purple' },
-                            { label: 'Orange', value: 'Orange' },
-                            { label: 'Pink', value: 'Pink' },
-                            { label: 'Grey', value: 'Grey' },
-                            { label: 'Brown', value: 'Brown' },
-                            { label: 'Beige', value: 'Beige' },
-                            { label: 'Cyan', value: 'Cyan' },
                         ]}
                         value={color}
                         onChange={e => setColor(e.target.value)}
@@ -139,6 +133,16 @@ export default function ProductForm({
                         placeholder="Size"
                         value={size}
                         onChange={e => setSize(e.target.value)}
+                        className='bg-transparent text-white'
+                    />
+                    <Label htmlFor="size" className={"text-white"}>
+                        Stock
+                    </Label>
+                    <Input
+                        type="size" id="size"
+                        placeholder="Size"
+                        value={stock}
+                        onChange={e => setStock(e.target.value)}
                         className='bg-transparent text-white'
                     />
                     <Label htmlFor="price" className={"text-white"}>

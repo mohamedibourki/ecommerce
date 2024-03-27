@@ -7,6 +7,7 @@ const ProductSchema = new Schema({
     category: { type: String },
     color: { type: String },
     size: { type: String },
+    stock: { type: String },
     price: { type: Number }
 })
 
