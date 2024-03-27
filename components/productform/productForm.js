@@ -21,12 +21,21 @@ export default function ProductForm({
     const [title, setTitle] = useState(existingTitle || '')
     const [image, setImage] = useState(existingImage || '')
     const [description, setDescription] = useState(existingDescription || '')
+    const [categories, setCategories] = useState([])
     const [category, setCategory] = useState(existingCategory || '')
     const [color, setColor] = useState(existingColor || '')
     const [size, setSize] = useState(existingSize || '')
     const [stock, setStock] = useState(existingStock || '')
     const [price, setPrice] = useState(existingPrice || '')
     const [goToProducts, setGoToProducts] = useState(false)
+
+    useEffect(() => {
+        axios.get('/api/categories').then(
+            (res) => {
+                setCategories(res.data)
+            }
+        )
+    }, [])
 
     const router = useRouter()
 
@@ -90,21 +99,27 @@ export default function ProductForm({
                         onChange={e => setDescription(e.target.value)}
                         className='bg-transparent text-white'
                     />
-                    <Label htmlFor="category" className={"text-white"}>
+                    <Label htmlFor="category" className={"text-white text-base"}>
                         Category
                     </Label>
                     <br />
-                    <CFormSelect
-                        aria-label="Default select example"
-                        className='mb-1 rounded p-1'
-                        options={[
-                            'Category',
-                            { label: 'Phone', value: 'Phone' },
-                            { label: 'Tv', value: 'Tv' },
-                        ]}
+                    <select
                         value={category}
-                        onChange={e => setCategory(e.target.value)}
-                    />
+                        onChange={
+                            ev => setCategory(ev.target.value)
+                        }
+                        className='text-xl'
+                        >
+                        <option>unCategorized</option>
+                        {categories && categories.map(c => (
+                            <option
+                                key={c._id}
+                                value={c._id}
+                            >
+                                {c.name}
+                            </option>
+                        ))}
+                    </select>
                     <br />
                     <Label htmlFor="color" className={"text-white"}>
                         Color

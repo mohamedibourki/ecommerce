@@ -134,13 +134,6 @@ export default function categories() {
                                                 }>
                                                     Yes
                                                 </Button>
-                                                <DialogFooter className="sm:justify-start">
-                                                    <DialogClose asChild>
-                                                        <Button type="button" variant="secondary">
-                                                            Close
-                                                        </Button>
-                                                    </DialogClose>
-                                                </DialogFooter>
                                             </DialogContent>
                                         </Dialog>
                                     </TableCell>
