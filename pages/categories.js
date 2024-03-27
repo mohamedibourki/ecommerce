@@ -14,12 +14,25 @@ import {
 } from "@/components/ui/table"
 import Link from 'next/link'
 
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { useRouter } from 'next/router'
+
 export default function categories() {
 
     const [name, setName] = useState('')
     const [categories, setCategories] = useState([])
     const [parentCategory, setParentCategory] = useState('')
     const [edditedCategory, setEditedCategory] = useState(null)
+    const router = useRouter()
 
     useEffect(() => {
         fetchCategories()
@@ -50,6 +63,10 @@ export default function categories() {
         setEditedCategory(category)
         setName(category.name)
         setParentCategory(category.parent?._id)
+    }
+
+    function goBack() {
+        router.reload()
     }
 
     return (
@@ -96,9 +113,36 @@ export default function categories() {
                                         <Button onClick={() => editCategory(category)} variant='outline' className='text-black' asChild>
                                             <Link href={''}>Edit</Link>
                                         </Button>
-                                        <Button variant='outline' className='text-black' asChild>
-                                            <Link href={`/categories/delete/${category._id}`}>Delete</Link>
-                                        </Button>
+                                        <Dialog>
+                                            <DialogTrigger asChild>
+                                                <Button variant="outline" className='text-black'>
+                                                    Delete
+                                                </Button>
+                                            </DialogTrigger>
+                                            <DialogContent className="sm:max-w-md">
+                                                <DialogHeader>
+                                                    <DialogTitle>Delete Product</DialogTitle>
+                                                    <DialogDescription>
+                                                        Do you really want to delete this category {category.name}.
+                                                    </DialogDescription>
+                                                </DialogHeader>
+                                                <Button variant='destructive' className='text-black' onClick={
+                                                    async () => {
+                                                        await axios.delete('/api/categories?id=' + category._id)
+                                                        goBack()
+                                                    }
+                                                }>
+                                                    Yes
+                                                </Button>
+                                                <DialogFooter className="sm:justify-start">
+                                                    <DialogClose asChild>
+                                                        <Button type="button" variant="secondary">
+                                                            Close
+                                                        </Button>
+                                                    </DialogClose>
+                                                </DialogFooter>
+                                            </DialogContent>
+                                        </Dialog>
                                     </TableCell>
                                 </TableRow>
                             ))}
