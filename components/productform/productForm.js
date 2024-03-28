@@ -13,20 +13,16 @@ export default function ProductForm({
     image: existingImage,
     description: existingDescription,
     category: existingCategory,
-    color: existingColor,
-    size: existingSize,
-    stock: existingStock,
-    price: existingPrice
+    price: existingPrice,
+    properties, existingProperties
 }) {
     const [title, setTitle] = useState(existingTitle || '')
     const [image, setImage] = useState(existingImage || '')
     const [description, setDescription] = useState(existingDescription || '')
     const [categories, setCategories] = useState([])
     const [category, setCategory] = useState(existingCategory || '')
-    const [color, setColor] = useState(existingColor || '')
-    const [size, setSize] = useState(existingSize || '')
-    const [stock, setStock] = useState(existingStock || '')
     const [price, setPrice] = useState(existingPrice || '')
+    const [productProperties, setProductProperties] = useState(existingProperties || {})
     const [goToProducts, setGoToProducts] = useState(false)
 
     useEffect(() => {
@@ -41,7 +37,7 @@ export default function ProductForm({
 
     async function saveProduct(ev) {
         ev.preventDefault();
-        const data = { title, image, description, category, color, size, price, stock };
+        const data = { title, image, description, category, price, properties: productProperties };
         if (_id) {
             await axios.put('/api/products', { ...data, _id })
         } else {
@@ -64,6 +60,32 @@ export default function ProductForm({
             reader.readAsDataURL(file);
         }
     };
+
+    const propertiesToFill = [];
+    if (categories.length > 0 && category) {
+        let catInfo = categories.find(({ _id }) => _id === category);
+        if (catInfo) { // Check if catInfo is not undefined
+            propertiesToFill.push(...catInfo.properties);
+            while (catInfo?.parent?._id) {
+                const parentCat = categories.find(({ _id }) => _id === catInfo?.parent?._id);
+                if (parentCat) { // Check if parentCat is not undefined
+                    propertiesToFill.push(...parentCat.properties);
+                    catInfo = parentCat;
+                } else {
+                    break; // Break the loop if parentCat is undefined
+                }
+            }
+        }
+    }
+
+
+    function setProductProp(propName, value) {
+        setProductProperties(prev => {
+            const newProductProps = { ...prev }
+            newProductProps[propName] = value
+            return newProductProps
+        })
+    }
 
     return (
         <div className='w-screen ml-10 mt-10'>
@@ -121,45 +143,22 @@ export default function ProductForm({
                         ))}
                     </select>
                     <br />
-                    <Label htmlFor="color" className={"text-white"}>
-                        Color
-                    </Label>
-                    <br />
-                    <CFormSelect
-                        aria-label="Default select example"
-                        className='mb-1 rounded p-1'
-                        options={[
-                            'Color',
-                            { label: 'White', value: 'White' },
-                            { label: 'Black', value: 'Black' },
-                            { label: 'Red', value: 'Red' },
-                            { label: 'Green', value: 'Green' },
-                            { label: 'Blue', value: 'Blue' },
-                        ]}
-                        value={color}
-                        onChange={e => setColor(e.target.value)}
-                    />
-                    <br />
-                    <Label htmlFor="size" className={"text-white"}>
-                        Size
-                    </Label>
-                    <Input
-                        type="size" id="size"
-                        placeholder="Size"
-                        value={size}
-                        onChange={e => setSize(e.target.value)}
-                        className='bg-transparent text-white'
-                    />
-                    <Label htmlFor="size" className={"text-white"}>
-                        Stock
-                    </Label>
-                    <Input
-                        type="size" id="size"
-                        placeholder="Size"
-                        value={stock}
-                        onChange={e => setStock(e.target.value)}
-                        className='bg-transparent text-white'
-                    />
+                    {propertiesToFill && propertiesToFill.map(p => (
+                        <div className='text-white flex'>
+                            <div>{p.name}</div>
+                            <select className='text-black' value={productProperties[p.name]} onChange={e => setProductProp(p.name, e.target.value)}>
+                                {p.values.map(v => (
+                                    <option
+                                        className='text-black'
+                                        key={v}
+                                        value={v}
+                                    >
+                                        {v}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    ))}
                     <Label htmlFor="price" className={"text-white"}>
                         Price in $
                     </Label>
