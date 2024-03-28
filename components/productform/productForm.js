@@ -109,7 +109,7 @@ export default function ProductForm({
                             ev => setCategory(ev.target.value)
                         }
                         className='text-xl'
-                        >
+                    >
                         <option>unCategorized</option>
                         {categories && categories.map(c => (
                             <option
