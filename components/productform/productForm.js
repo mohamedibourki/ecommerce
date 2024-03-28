@@ -33,7 +33,6 @@ export default function ProductForm({
         axios.get('/api/categories').then(
             (res) => {
                 setCategories(res.data)
-                console.log(res.data);
             }
         )
     }, [])
@@ -106,12 +105,19 @@ export default function ProductForm({
                     <br />
                     <select
                         value={category}
-                        onChange={e => setCategory(e.target.value)}
+                        onChange={
+                            ev => setCategory(ev.target.value)
+                        }
                         className='text-xl'
-                    >
+                        >
                         <option>unCategorized</option>
                         {categories && categories.map(c => (
-                            <option key={c._id} value={c._id}>{c.name}</option>
+                            <option
+                                key={c._id}
+                                value={c._id}
+                            >
+                                {c.name}
+                            </option>
                         ))}
                     </select>
                     <br />
