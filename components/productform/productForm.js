@@ -206,6 +206,7 @@ export default function ProductForm({
                                 <div className='my-3'>
                                     <label for="Status" className='block'>Status</label>
                                     <select value={status} onChange={e => setStatus(e.target.value)} name="Status" id="Status">
+                                    <option value="NoN">NoN</option>
                                         <option value="Published">Published</option>
                                         <option value="Draft">Draft</option>
                                         <option value="Scheduled">Scheduled</option>
