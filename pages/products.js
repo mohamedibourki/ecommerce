@@ -54,18 +54,18 @@ export default function products() {
         <SideNav>
             <div>
                 <div className='w-full'>
-                    <Button className='float-end' asChild>
+                    <Button className='float-end md:text-xs' asChild>
                         <Link href={'/products/add-product'}>Add Product</Link>
                     </Button>
                 </div>
-                <Table className="my-10">
+                <Table className="my-10 md:text-xs">
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Product Name</TableHead>
-                            <TableHead>Category</TableHead>
-                            <TableHead>Price</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Stock</TableHead>
+                            <TableHead className="md:text-xs">Product Name</TableHead>
+                            <TableHead className="md:text-xs">Category</TableHead>
+                            <TableHead className="md:text-xs">Price</TableHead>
+                            <TableHead className="md:text-xs">Status</TableHead>
+                            <TableHead className="md:text-xs">Stock</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -89,7 +89,7 @@ export default function products() {
                                 <TableCell>
                                     <Popover>
                                         <PopoverTrigger asChild>
-                                            <Button>Actions</Button>
+                                            <Button className={`md:text-xs`}>Actions</Button>
                                         </PopoverTrigger>
                                         <PopoverContent className='flex justify-center gap-2 flex-col w-32'>
                                             <Button asChild>

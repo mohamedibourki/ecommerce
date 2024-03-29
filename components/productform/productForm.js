@@ -7,15 +7,6 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-
-import {
     Card,
     CardContent,
     CardDescription,
@@ -23,12 +14,6 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-
-// import Box from '@mui/material/Box';
-// import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import FormControl from '@mui/material/FormControl';
-// import Select from '@mui/material/Select';
 
 export default function ProductForm({
     _id,
@@ -110,130 +95,126 @@ export default function ProductForm({
     }
 
     return (
-        <div>
-            <div>
-                <form onSubmit={saveProduct}>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Add Product</CardTitle>
-                            <CardDescription>Add your product here so easily.</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <form>
-                                <div>
-                                    <Label htmlFor="product-name">
-                                        Product Name
-                                    </Label>
-                                    <Input
-                                        type="product-name"
-                                        id="product-name"
-                                        placeholder="Product Name"
-                                        value={title}
-                                        onChange={e => setTitle(e.target.value)}
-                                    />
-                                </div>
-                                <div>
-                                    <Label htmlFor="picture">Picture</Label>
-                                    <Input onChange={handleImageChange} id="picture" type="file" />
-                                    {image && <img src={image} alt='' width={'150px'} />}
-                                </div>
-                                <div>
-                                    <Label htmlFor="description">
-                                        Description
-                                    </Label>
-                                    <Textarea
-                                        placeholder="Type your description here."
-                                        id="description"
-                                        value={description}
-                                        onChange={e => setDescription(e.target.value)}
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="category" className={"text-base"}>
-                                        Category
-                                    </label>
-                                    <br />
-                                    <select
-                                        value={category}
-                                        onChange={
-                                            ev => setCategory(ev.target.value)
-                                        }
-                                        className='text-xl'
+        <form onSubmit={saveProduct}>
+            <Card>
+                <CardHeader>
+                    <CardTitle>Add Product</CardTitle>
+                    <CardDescription>Add your product here so easily.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form>
+                        <div>
+                            <Label htmlFor="product-name">
+                                Product Name
+                            </Label>
+                            <Input
+                                type="product-name"
+                                id="product-name"
+                                placeholder="Product Name"
+                                value={title}
+                                onChange={e => setTitle(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <Label htmlFor="picture">Picture</Label>
+                            <Input onChange={handleImageChange} id="picture" type="file" />
+                            {image && <img src={image} alt='' width={'150px'} />}
+                        </div>
+                        <div>
+                            <Label htmlFor="description">
+                                Description
+                            </Label>
+                            <Textarea
+                                placeholder="Type your description here."
+                                id="description"
+                                value={description}
+                                onChange={e => setDescription(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="category" className={"text-base"}>
+                                Category
+                            </label>
+                            <br />
+                            <select
+                                value={category}
+                                onChange={
+                                    ev => setCategory(ev.target.value)
+                                }
+                                className='text-xl'
+                            >
+                                <option>unCategorized</option>
+                                {categories && categories.map(c => (
+                                    <option
+                                        key={c._id}
+                                        value={c._id}
                                     >
-                                        <option>unCategorized</option>
-                                        {categories && categories.map(c => (
+                                        {c.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            {propertiesToFill && propertiesToFill.map(p => (
+                                <div className='flex'>
+                                    <div>{p.name}</div>
+                                    <select value={productProperties[p.name]} onChange={e => setProductProp(p.name, e.target.value)}>
+                                        {p.values.map(v => (
                                             <option
-                                                key={c._id}
-                                                value={c._id}
+                                                key={v}
+                                                value={v}
                                             >
-                                                {c.name}
+                                                {v}
                                             </option>
                                         ))}
                                     </select>
                                 </div>
-                                <div>
-                                    {propertiesToFill && propertiesToFill.map(p => (
-                                        <div className='flex'>
-                                            <div>{p.name}</div>
-                                            <select value={productProperties[p.name]} onChange={e => setProductProp(p.name, e.target.value)}>
-                                                {p.values.map(v => (
-                                                    <option
-                                                        key={v}
-                                                        value={v}
-                                                    >
-                                                        {v}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className='my-3'>
-                                    <Label htmlFor="tags">Tags</Label>
-                                    <Input onChange={e => setTags(e.target.value)} value={tags} type="tags" id="tags" placeholder="tags" />
-                                </div>
-                                <div className='my-3'>
-                                    <label for="Status" className='block'>Status</label>
-                                    <select value={status} onChange={e => setStatus(e.target.value)} name="Status" id="Status">
-                                        <option value="NoN">NoN</option>
-                                        <option value="Published">Published</option>
-                                        <option value="Draft">Draft</option>
-                                        <option value="Scheduled">Scheduled</option>
-                                        <option value="Inactive">Inactive</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <Label htmlFor="stock" >
-                                        Stock
-                                    </Label>
-                                    <Input
-                                        type="stock"
-                                        id="stock"
-                                        placeholder="Stock"
-                                        value={stock}
-                                        onChange={e => setStock(e.target.value)}
-                                    />
-                                </div>
-                                <div>
-                                    <Label htmlFor="price" >
-                                        Price in $
-                                    </Label>
-                                    <Input
-                                        type="price"
-                                        id="price"
-                                        placeholder="Price"
-                                        value={price}
-                                        onChange={e => setPrice(e.target.value)}
-                                    />
-                                </div>
-                            </form>
-                        </CardContent>
-                        <CardFooter>
-                            <Button type='submit'>Submit</Button>
-                        </CardFooter>
-                    </Card>
-                </form>
-            </div>
-        </div >
+                            ))}
+                        </div>
+                        <div className='my-3'>
+                            <Label htmlFor="tags">Tags</Label>
+                            <Input onChange={e => setTags(e.target.value)} value={tags} type="tags" id="tags" placeholder="tags" />
+                        </div>
+                        <div className='my-3'>
+                            <label for="Status" className='block'>Status</label>
+                            <select value={status} onChange={e => setStatus(e.target.value)} name="Status" id="Status">
+                                <option value="NoN">NoN</option>
+                                <option value="Published">Published</option>
+                                <option value="Draft">Draft</option>
+                                <option value="Scheduled">Scheduled</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div>
+                            <Label htmlFor="stock" >
+                                Stock
+                            </Label>
+                            <Input
+                                type="stock"
+                                id="stock"
+                                placeholder="Stock"
+                                value={stock}
+                                onChange={e => setStock(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <Label htmlFor="price" >
+                                Price in $
+                            </Label>
+                            <Input
+                                type="price"
+                                id="price"
+                                placeholder="Price"
+                                value={price}
+                                onChange={e => setPrice(e.target.value)}
+                            />
+                        </div>
+                    </form>
+                </CardContent>
+                <CardFooter>
+                    <Button type='submit'>Submit</Button>
+                </CardFooter>
+            </Card>
+        </form>
     )
 }

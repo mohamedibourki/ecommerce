@@ -24,15 +24,6 @@ import {
 } from "@/components/ui/dialog"
 import { useRouter } from 'next/router'
 
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-
 export default function categories() {
 
     const [name, setName] = useState('')
@@ -133,30 +124,14 @@ export default function categories() {
                         placeholder="Category Name"
                         value={name}
                         onChange={e => setName(e.target.value)}
-                        className='w-1/4'
+                        className='w-1/4 md:w-1/2'
                     />
-                    {/* <Select>
-                        <SelectTrigger
-                            value={parentCategory}
-                            onChange={e => setParentCategory(e.target.value)}
-                            className='w-1/4'
-                        >
-                            <SelectValue placeholder="No parent category" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {categories.map((category) => (
-                                    <SelectItem value={category._id}>{category.name}</SelectItem>
-                                ))}
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select> */}
                     <select
                         value={parentCategory}
                         onChange={
                             ev => setParentCategory(ev.target.value)
                         }
-                        className='w-1/4'
+                        className='w-1/4 md:w-1/2 rounded-md'
                     >
                         <option>No parent category</option>
                         {categories.map(category => (
@@ -171,51 +146,54 @@ export default function categories() {
                 </div>
                 <div>
                     <label className='block'>Properties</label>
-                    <Button onClick={addProperty} type='button' >add new property</Button>
+                    <Button onClick={addProperty} type='button' className='mt-2'>add new property</Button>
                     {properties && properties.map((property, index) => (
-                        <div className='flex my-4 gap-4'>
+                        <div className='flex my-4 gap-4 md:gap-2'>
                             <Input
                                 type="text"
                                 value={property.name}
                                 onChange={e => handlePropertyNameChange(index, property, e.target.value)}
                                 placeholder="proprty"
-                                className='w-1/4'
+                                className='w-1/4 md:w-1/2'
                             />
                             <Input
                                 type="text"
                                 value={property.values}
                                 onChange={e => handlePropertyValuesChange(index, property, e.target.value)}
                                 placeholder="value"
-                                className='w-1/4'
+                                className='w-1/4 md:w-1/2'
                             />
-                            <Button onClick={() => removeProprty(index)} type='button' >Remove</Button>
+                            <Button onClick={() => removeProprty(index)} type='button'>Remove</Button>
                         </div>
                     ))}
                 </div>
-                {editedCategory && (
-                    <Button
-                        onClick={
-                            () => {
-                                setEditedCategory(null)
-                                setName('')
-                                setParentCategory('')
-                                setProperties([])
+                <div className=''>
+                    {editedCategory && (
+                        <Button
+                            onClick={
+                                () => {
+                                    setEditedCategory(null)
+                                    setName('')
+                                    setParentCategory('')
+                                    setProperties([])
+                                }
                             }
-                        }
-                        variant='destructive'
-                        type='button'
-                    >
-                        Cancel
-                    </Button>
-                )}
-                <Button type='submit' className='mt-4'>Submit</Button>
+                            variant='destructive'
+                            type='button'
+                            className='mr-3'
+                        >
+                            Cancel
+                        </Button>
+                    )}
+                    <Button type='submit' className='mt-4'>Submit</Button>
+                </div>
             </form>
             {!editedCategory && (
                 <Table className="my-10">
                     <TableHeader>
                         <TableRow>
-                            <TableHead >Category Name</TableHead>
-                            <TableHead >Parent Category</TableHead>
+                            <TableHead>Category Name</TableHead>
+                            <TableHead>Parent Category</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
