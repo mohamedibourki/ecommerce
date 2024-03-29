@@ -39,6 +39,7 @@ export default function ProductForm({
     stock: existingStock,
     price: existingPrice,
     properties: existingProperties,
+    tags: existingTags,
     status: existingStatus,
 }) {
     const [title, setTitle] = useState(existingTitle || '')
@@ -48,6 +49,7 @@ export default function ProductForm({
     const [category, setCategory] = useState(existingCategory || '')
     const [stock, setStock] = useState(existingStock || '')
     const [price, setPrice] = useState(existingPrice || '')
+    const [tags, setTags] = useState(existingTags || '')
     const [status, setStatus] = useState(existingStatus || '')
     const [productProperties, setProductProperties] = useState(existingProperties || {})
     const [goToProducts, setGoToProducts] = useState(false)
@@ -64,7 +66,7 @@ export default function ProductForm({
 
     async function saveProduct(ev) {
         ev.preventDefault();
-        const data = { title, image, description, category, stock, status, price, properties: productProperties };
+        const data = { title, image, description, category, stock, status, tags, price, properties: productProperties };
         if (_id) {
             await axios.put('/api/products', { ...data, _id })
         } else {
@@ -87,23 +89,6 @@ export default function ProductForm({
             reader.readAsDataURL(file);
         }
     };
-
-    // const propertiesToFill = [];
-    // if (categories.length > 0 && category) {
-    //     let catInfo = categories.find(({ _id }) => _id === category);
-    //     if (catInfo) {
-    //         propertiesToFill.push(...catInfo.properties);
-    //         while (catInfo?.parent?._id) {
-    //             const parentCat = categories.find(({ _id }) => _id === catInfo?.parent?._id);
-    //             if (parentCat) {
-    //                 propertiesToFill.push(...parentCat.properties);
-    //                 catInfo = parentCat;
-    //             } else {
-    //                 break;
-    //             }
-    //         }
-    //     }
-    // }
 
     const propertiesToFill = [];
     if (categories.length > 0 && category) {
@@ -150,7 +135,7 @@ export default function ProductForm({
                                 <div>
                                     <Label htmlFor="picture">Picture</Label>
                                     <Input onChange={handleImageChange} id="picture" type="file" />
-                                    {image && <img src={image} alt='' />}
+                                    {image && <img src={image} alt='' width={'150px'} />}
                                 </div>
                                 <div>
                                     <Label htmlFor="description">
@@ -204,9 +189,13 @@ export default function ProductForm({
                                     ))}
                                 </div>
                                 <div className='my-3'>
+                                    <Label htmlFor="tags">Tags</Label>
+                                    <Input onChange={e => setTags(e.target.value)} value={tags} type="tags" id="tags" placeholder="tags" />
+                                </div>
+                                <div className='my-3'>
                                     <label for="Status" className='block'>Status</label>
                                     <select value={status} onChange={e => setStatus(e.target.value)} name="Status" id="Status">
-                                    <option value="NoN">NoN</option>
+                                        <option value="NoN">NoN</option>
                                         <option value="Published">Published</option>
                                         <option value="Draft">Draft</option>
                                         <option value="Scheduled">Scheduled</option>

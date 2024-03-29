@@ -4,10 +4,11 @@ const ProductSchema = new Schema({
     title: { type: String },
     image: { type: String },
     description: { type: String },
-    status: { type: String },
     category: { type: mongoose.Types.ObjectId, ref: 'Category' },
-    stock: { type: Number },
     properties: { type: Object },
+    tags: { type: String },
+    status: { type: String },
+    stock: { type: Number },
     price: { type: Number }
 })
 

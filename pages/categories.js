@@ -122,123 +122,140 @@ export default function categories() {
 
     return (
         <SideNav>
-            <div>
+            <Label htmlFor="category-name" >
+                {editedCategory ? `Edit Category ${editedCategory.name}` : 'Create New Category'}
+            </Label>
+            <form onSubmit={handleSubmit}>
+                <div className='flex gap-3 my-2 mb-5'>
+                    <Input
+                        type="text"
+                        id="category-name"
+                        placeholder="Category Name"
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        className='w-1/4'
+                    />
+                    {/* <Select>
+                        <SelectTrigger
+                            value={parentCategory}
+                            onChange={e => setParentCategory(e.target.value)}
+                            className='w-1/4'
+                        >
+                            <SelectValue placeholder="No parent category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {categories.map((category) => (
+                                    <SelectItem value={category._id}>{category.name}</SelectItem>
+                                ))}
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select> */}
+                    <select
+                        value={parentCategory}
+                        onChange={
+                            ev => setParentCategory(ev.target.value)
+                        }
+                        className='w-1/4'
+                    >
+                        <option>No parent category</option>
+                        {categories.map(category => (
+                            <option
+                                key={category._id}
+                                value={category._id}
+                            >
+                                {category.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
                 <div>
-                    <Label htmlFor="category-name" >
-                        {editedCategory ? `Edit Category ${editedCategory.name}` : 'Create New Category'}
-                    </Label>
-                    <form onSubmit={handleSubmit}>
-                        <div className='flex'>
+                    <label className='block'>Properties</label>
+                    <Button onClick={addProperty} type='button' >add new property</Button>
+                    {properties && properties.map((property, index) => (
+                        <div className='flex my-4 gap-4'>
                             <Input
                                 type="text"
-                                id="category-name"
-                                placeholder="Category Name"
-                                value={name}
-                                onChange={e => setName(e.target.value)}
+                                value={property.name}
+                                onChange={e => handlePropertyNameChange(index, property, e.target.value)}
+                                placeholder="proprty"
+                                className='w-1/4'
                             />
-                            <Select>
-                                <SelectTrigger
-                                    value={parentCategory}
-                                    onChange={e => setParentCategory(e.target.value)}
-                                >
-                                    <SelectValue placeholder="No parent category" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectGroup>
-                                        {categories.map((category) => (
-                                            <SelectItem value={category._id}>{category.name}</SelectItem>
-                                        ))}
-                                    </SelectGroup>
-                                </SelectContent>
-                            </Select>
+                            <Input
+                                type="text"
+                                value={property.values}
+                                onChange={e => handlePropertyValuesChange(index, property, e.target.value)}
+                                placeholder="value"
+                                className='w-1/4'
+                            />
+                            <Button onClick={() => removeProprty(index)} type='button' >Remove</Button>
                         </div>
-                        <div>
-                            <label className='block'>Properties</label>
-                            <Button onClick={addProperty} type='button' >add new property</Button>
-                            {properties && properties.map((property, index) => (
-                                <div className='flex'>
-                                    <Input
-                                        type="text"
-                                        value={property.name}
-                                        onChange={e => handlePropertyNameChange(index, property, e.target.value)}
-                                        placeholder="proprty"
-                                    />
-                                    <Input
-                                        type="text"
-                                        value={property.values}
-                                        onChange={e => handlePropertyValuesChange(index, property, e.target.value)}
-                                        placeholder="value"
-                                    />
-                                    <Button onClick={() => removeProprty(index)} type='button' >Remove</Button>
-                                </div>
-                            ))}
-                        </div>
-                        {editedCategory && (
-                            <Button
-                                onClick={
-                                    () => {
-                                        setEditedCategory(null)
-                                        setName('')
-                                        setParentCategory('')
-                                        setProperties([])
-                                    }
-                                }
-                                variant='destructive'
-                                type='button'
-                            >
-                                Cancel
-                            </Button>
-                        )}
-                        <Button type='submit' >Submit</Button>
-                    </form>
-                    {!editedCategory && (
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead >Category Name</TableHead>
-                                    <TableHead >Parent Category</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {categories.map((category) => (
-                                    <TableRow>
-                                        <TableCell >{category.name}</TableCell>
-                                        <TableCell >{category?.parent?.name}</TableCell>
-                                        <TableCell>
-                                            <Button onClick={() => editCategory(category)} asChild>
-                                                <Link href={''}>Edit</Link>
-                                            </Button>
-                                            <Dialog>
-                                                <DialogTrigger asChild>
-                                                    <Button  >
-                                                        Delete
-                                                    </Button>
-                                                </DialogTrigger>
-                                                <DialogContent >
-                                                    <DialogHeader>
-                                                        <DialogTitle>Delete Product</DialogTitle>
-                                                        <DialogDescription>
-                                                            Do you really want to delete this category {category.name}.
-                                                        </DialogDescription>
-                                                    </DialogHeader>
-                                                    <Button variant='destructive' onClick={
-                                                        async () => {
-                                                            await axios.delete('/api/categories?id=' + category._id)
-                                                            goBack()
-                                                        }
-                                                    }>
-                                                        Yes
-                                                    </Button>
-                                                </DialogContent>
-                                            </Dialog>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    )}
+                    ))}
                 </div>
-            </div>
+                {editedCategory && (
+                    <Button
+                        onClick={
+                            () => {
+                                setEditedCategory(null)
+                                setName('')
+                                setParentCategory('')
+                                setProperties([])
+                            }
+                        }
+                        variant='destructive'
+                        type='button'
+                    >
+                        Cancel
+                    </Button>
+                )}
+                <Button type='submit' className='mt-4'>Submit</Button>
+            </form>
+            {!editedCategory && (
+                <Table className="my-10">
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead >Category Name</TableHead>
+                            <TableHead >Parent Category</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {categories.map((category) => (
+                            <TableRow>
+                                <TableCell >{category.name}</TableCell>
+                                <TableCell >{category?.parent?.name}</TableCell>
+                                <TableCell className='flex gap-2'>
+                                    <Button onClick={() => editCategory(category)} asChild>
+                                        <Link href={''}>Edit</Link>
+                                    </Button>
+                                    <Dialog>
+                                        <DialogTrigger asChild>
+                                            <Button variant="destructive">
+                                                Delete
+                                            </Button>
+                                        </DialogTrigger>
+                                        <DialogContent >
+                                            <DialogHeader>
+                                                <DialogTitle>Delete Product</DialogTitle>
+                                                <DialogDescription>
+                                                    Do you really want to delete this category {category.name}.
+                                                </DialogDescription>
+                                            </DialogHeader>
+                                            <Button variant='destructive' onClick={
+                                                async () => {
+                                                    await axios.delete('/api/categories?id=' + category._id)
+                                                    goBack()
+                                                }
+                                            }>
+                                                Yes
+                                            </Button>
+                                        </DialogContent>
+                                    </Dialog>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            )}
         </SideNav >
     )
 }
