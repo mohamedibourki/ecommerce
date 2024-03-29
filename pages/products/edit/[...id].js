@@ -19,9 +19,9 @@ export default function EditProduct() {
             })
     }, [id])
 
-    return <main className='text-white'>
+    return <main >
         <SideNav>
-            <div className='w-screen'>
+            <div >
                 {productInfo && (
                     <ProductForm {...productInfo} />
                 )}
