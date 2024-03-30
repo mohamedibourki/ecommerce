@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/dialog"
 import { useRouter } from 'next/router'
 
-export default function categories() {
+export default function Categories() {
 
     const [name, setName] = useState('')
     const [categories, setCategories] = useState([])
@@ -148,7 +148,7 @@ export default function categories() {
                     <label className='block'>Properties</label>
                     <Button onClick={addProperty} type='button' className='mt-2'>add new property</Button>
                     {properties && properties.map((property, index) => (
-                        <div className='flex my-4 gap-4 md:gap-2'>
+                        <div key={index} className='flex my-4 gap-4 md:gap-2'>
                             <Input
                                 type="text"
                                 value={property.name}
@@ -198,7 +198,7 @@ export default function categories() {
                     </TableHeader>
                     <TableBody>
                         {categories.map((category) => (
-                            <TableRow>
+                            <TableRow key={category._id}>
                                 <TableCell >{category.name}</TableCell>
                                 <TableCell >{category?.parent?.name}</TableCell>
                                 <TableCell className='flex gap-2'>

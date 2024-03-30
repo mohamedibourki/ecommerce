@@ -15,6 +15,8 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 
+import Image from 'next/image'
+
 export default function ProductForm({
     _id,
     title: existingTitle,
@@ -118,7 +120,7 @@ export default function ProductForm({
                         <div>
                             <Label htmlFor="picture">Picture</Label>
                             <Input onChange={handleImageChange} id="picture" type="file" />
-                            {image && <img src={image} alt='' width={'150px'} />}
+                            {image && <Image src={image} alt='' width={150} height={150} />}
                         </div>
                         <div>
                             <Label htmlFor="description">

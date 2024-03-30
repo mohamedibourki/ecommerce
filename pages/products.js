@@ -28,7 +28,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-export default function products() {
+export default function Products() {
     const [products, setProducts] = useState([])
     const [categories, setCategories] = useState([])
     const router = useRouter()
