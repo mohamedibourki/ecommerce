@@ -156,7 +156,7 @@ export default function ProductForm({
                         </div>
                         <div>
                             {propertiesToFill && propertiesToFill.map(p => (
-                                <div className='flex'>
+                                <div className='flex' key={p._id}>
                                     <div>{p.name}</div>
                                     <select value={productProperties[p.name]} onChange={e => setProductProp(p.name, e.target.value)}>
                                         {p.values.map(v => (

@@ -21,7 +21,7 @@ export default function SideNav({ children }) {
 
     function collapseTheSide() {
         if (width == '') {
-            setWidth('w-0 sm:w-0')
+            setWidth('w-[0px] sm:w-[0px]')
             setText('invisible')
         } else {
             setWidth('')
