@@ -39,6 +39,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import SideNav from "@/components/nav/SideNav";
 
 const data = [
     {
@@ -188,7 +189,7 @@ export default function DataTableDemo() {
     });
 
     return (
-        <div className="w-full">
+        <SideNav>
             <div className="flex items-center py-4">
                 <Input
                     placeholder="Filter emails..."
@@ -299,6 +300,6 @@ export default function DataTableDemo() {
                     </Button>
                 </div>
             </div>
-        </div>
+        </SideNav>
     );
 }

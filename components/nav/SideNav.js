@@ -5,8 +5,58 @@ import { Button } from '../ui/button'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { ModeToggle } from '../dark/dark'
 import { ChevronLeftIcon } from "@radix-ui/react-icons"
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+        backgroundColor: '#44b700',
+        color: '#44b700',
+        boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+        '&::after': {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            animation: 'ripple 1.2s infinite ease-in-out',
+            border: '1px solid currentColor',
+            content: '""',
+        },
+    },
+    '@keyframes ripple': {
+        '0%': {
+            transform: 'scale(.8)',
+            opacity: 1,
+        },
+        '100%': {
+            transform: 'scale(2.4)',
+            opacity: 0,
+        },
+    },
+}));
+
+const SmallAvatar = styled(Avatar)(({ theme }) => ({
+    width: 22,
+    height: 22,
+    border: `2px solid ${theme.palette.background.paper}`,
+}));
 
 export default function SideNav({ children }) {
+
+    const { data: session } = useSession()
 
     const inactiveLink = "flex p-2.5 gap-2 lg:text-base sm:text-base items-center"
     const activeLink = inactiveLink + " bg-white rounded-l-lg text-black p-2.5"
@@ -105,10 +155,39 @@ export default function SideNav({ children }) {
                     <ChevronLeftIcon />
                 </Button>
                 <ModeToggle />
+                <Button className="border-0" size="icon">
+                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 6.5C10 8.433 8.433 10 6.5 10C4.567 10 3 8.433 3 6.5C3 4.567 4.567 3 6.5 3C8.433 3 10 4.567 10 6.5ZM9.30884 10.0159C8.53901 10.6318 7.56251 11 6.5 11C4.01472 11 2 8.98528 2 6.5C2 4.01472 4.01472 2 6.5 2C8.98528 2 11 4.01472 11 6.5C11 7.56251 10.6318 8.53901 10.0159 9.30884L12.8536 12.1464C13.0488 12.3417 13.0488 12.6583 12.8536 12.8536C12.6583 13.0488 12.3417 13.0488 12.1464 12.8536L9.30884 10.0159Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </Button>
+                <Button className="border-0" size="icon">
+                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.60124 1.25086C8.60124 1.75459 8.26278 2.17927 7.80087 2.30989C10.1459 2.4647 12 4.41582 12 6.79999V10.25C12 11.0563 12.0329 11.7074 12.7236 12.0528C12.931 12.1565 13.0399 12.3892 12.9866 12.6149C12.9333 12.8406 12.7319 13 12.5 13H8.16144C8.36904 13.1832 8.49997 13.4513 8.49997 13.75C8.49997 14.3023 8.05226 14.75 7.49997 14.75C6.94769 14.75 6.49997 14.3023 6.49997 13.75C6.49997 13.4513 6.63091 13.1832 6.83851 13H2.49999C2.2681 13 2.06664 12.8406 2.01336 12.6149C1.96009 12.3892 2.06897 12.1565 2.27638 12.0528C2.96708 11.7074 2.99999 11.0563 2.99999 10.25V6.79999C2.99999 4.41537 4.85481 2.46396 7.20042 2.3098C6.73867 2.17908 6.40036 1.75448 6.40036 1.25086C6.40036 0.643104 6.89304 0.150421 7.5008 0.150421C8.10855 0.150421 8.60124 0.643104 8.60124 1.25086ZM7.49999 3.29999C5.56699 3.29999 3.99999 4.86699 3.99999 6.79999V10.25L4.00002 10.3009C4.0005 10.7463 4.00121 11.4084 3.69929 12H11.3007C10.9988 11.4084 10.9995 10.7463 11 10.3009L11 10.25V6.79999C11 4.86699 9.43299 3.29999 7.49999 3.29999Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </Button>
+                <Stack direction="row" spacing={2}>
+                    <StyledBadge
+                        overlap="circular"
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                        variant="dot"
+                    >
+                        <DropdownMenu>
+                            <DropdownMenuTrigger>
+                                <Avatar alt="" src={session?.user?.image} />
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <DropdownMenuItem>My Profile</DropdownMenuItem>
+                                <DropdownMenuItem>My Projects</DropdownMenuItem>
+                                <DropdownMenuItem>My Subscription</DropdownMenuItem>
+                                <DropdownMenuItem>My Statements</DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>Language</DropdownMenuItem>
+                                <DropdownMenuItem>Account Settings</DropdownMenuItem>
+                                <DropdownMenuItem>Sign Out</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </StyledBadge>
+                </Stack>
             </div>
             <div className='mt-14'>
                 {children}
             </div>
         </div>
-    </main>
+    </main >
 }
