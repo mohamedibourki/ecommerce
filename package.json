@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^2.5.0",
+    "@clerk/nextjs": "^4.29.12",
     "@coreui/coreui": "^4.3.0",
     "@coreui/react": "^4.11.1",
     "@emotion/react": "^11.11.4",

@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { Button } from '../ui/button'
-import { useSession, signIn, signOut } from "next-auth/react"
 import { ModeToggle } from '../dark/dark'
 import { ChevronLeftIcon } from "@radix-ui/react-icons"
 import { styled } from '@mui/material/styles';
@@ -55,8 +54,6 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
 }));
 
 export default function SideNav({ children }) {
-
-    const { data: session } = useSession()
 
     const inactiveLink = "flex p-2.5 gap-2 lg:text-base sm:text-base items-center"
     const activeLink = inactiveLink + " bg-white rounded-l-lg text-black p-2.5"
@@ -169,7 +166,7 @@ export default function SideNav({ children }) {
                     >
                         <DropdownMenu>
                             <DropdownMenuTrigger>
-                                <Avatar alt="" src={session?.user?.image} />
+                                <Avatar alt="" src={''} />
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuItem>My Profile</DropdownMenuItem>
