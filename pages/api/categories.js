@@ -1,6 +1,5 @@
 import { mongooseConnect } from "@/lib/mongoose"
 import { Category } from "@/models/category"
-import { getServerSession } from "next-auth"
 
 export default async function categories(req, res) {
 
